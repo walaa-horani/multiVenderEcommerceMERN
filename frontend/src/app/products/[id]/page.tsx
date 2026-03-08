@@ -24,11 +24,11 @@ export default function ProductDetails() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/products/${id}`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/${id}`);
         const data = await res.json();
         setProduct(data);
 
-        const allRes = await fetch(`http://localhost:5000/api/products`);
+        const allRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`);
         const allData = await allRes.json();
         setRelatedProducts(
           allData.filter((p: Product) => p.category === data.category && p._id !== data._id).slice(0, 4)
