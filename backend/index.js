@@ -12,7 +12,7 @@ dotenv.config();
 
 const app = express();
 
-// ✅ CORS must be FIRST - before any other middleware
+// ✅ CORS must be FIRST
 const corsOptions = {
     origin: process.env.FRONTEND_URL || "https://multi-vender-ecommerce-mern.vercel.app",
     credentials: true,
@@ -21,11 +21,10 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-// CORS is handled by app.use(cors(corsOptions)) above. No need for explicit app.options.
 
 // Security and Performance Middleware
 app.use(helmet({
-    crossOriginResourcePolicy: { policy: "cross-origin" } // ✅ Helmet can block CORS - this fixes it
+    crossOriginResourcePolicy: { policy: "cross-origin" }
 }));
 app.use(mongoSanitize());
 app.use(compression());

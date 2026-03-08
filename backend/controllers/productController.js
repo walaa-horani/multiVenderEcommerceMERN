@@ -9,7 +9,8 @@ const getProducts = async (req, res) => {
         const products = await Product.find({}).populate('vendorId', 'storeName');
         res.json(products);
     } catch (error) {
-        res.status(500).json({ message: 'Server error' });
+        console.error('Error in getProducts:', error);
+        res.status(500).json({ message: 'Server error', error: error.message });
     }
 };
 
