@@ -21,7 +21,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // ✅ Handle preflight requests for ALL routes
+// CORS is handled by app.use(cors(corsOptions)) above. No need for explicit app.options.
 
 // Security and Performance Middleware
 app.use(helmet({
