@@ -12,15 +12,28 @@ dotenv.config();
 
 const app = express();
 
+// ✅ CORS must be FIRST - before any other middleware
+const corsOptions = {
+    origin: process.env.FRONTEND_URL || "https://multi-vender-ecommerce-mern.vercel.app",
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // ✅ Handle preflight requests for ALL routes
+
 // Security and Performance Middleware
-app.use(helmet()); // Secure HTTP headers
-app.use(mongoSanitize()); // Prevent NoSQL injection
-app.use(compression()); // Compress responses for better performance
+app.use(helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" } // ✅ Helmet can block CORS - this fixes it
+}));
+app.use(mongoSanitize());
+app.use(compression());
 
 // Rate Limiting
 const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 500, // Limit each IP to 500 requests per windowMs
+    windowMs: 15 * 60 * 1000,
+    max: 500,
     standardHeaders: true,
     legacyHeaders: false,
     message: 'Too many requests from this IP, please try again after 15 minutes'
@@ -30,14 +43,7 @@ app.use('/api', limiter);
 // Built-in Middleware
 app.use(express.json());
 app.use(cookieParser());
-const corsOptions = {
-    origin: process.env.FRONTEND_URL || "https://multi-vender-ecommerce-mern.vercel.app",
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-};
 
-app.use(cors(corsOptions));
 // DB Connection
 mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/multi-vendor-db')
     .then(() => console.log('MongoDB Connected'))
@@ -67,5 +73,4 @@ app.get('/', (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
-
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
