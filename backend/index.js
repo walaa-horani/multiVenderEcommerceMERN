@@ -30,11 +30,14 @@ app.use('/api', limiter);
 // Built-in Middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+const corsOptions = {
+    origin: process.env.FRONTEND_URL || "https://multi-vender-ecommerce-mern.vercel.app",
     credentials: true,
-}));
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+};
 
+app.use(cors(corsOptions));
 // DB Connection
 mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/multi-vendor-db')
     .then(() => console.log('MongoDB Connected'))
