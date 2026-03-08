@@ -1,0 +1,84 @@
+
+> frontend@0.1.0 lint
+> eslint
+
+
+C:\Users\Walaa\OneDrive\Desktop\multi-vendor-ecommerce\frontend\src\app\admin\page.tsx
+  17:64  warning  'Eye' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Walaa\OneDrive\Desktop\multi-vendor-ecommerce\frontend\src\app\components\Layout.tsx
+  4:39  warning  'LayoutDashboard' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Walaa\OneDrive\Desktop\multi-vendor-ecommerce\frontend\src\app\components\figma\ImageWithFallback.tsx
+  21:9  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  25:5  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\Walaa\OneDrive\Desktop\multi-vendor-ecommerce\frontend\src\app\components\ui\sidebar.tsx
+  611:26  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\Walaa\OneDrive\Desktop\multi-vendor-ecommerce\frontend\src\app\components\ui\sidebar.tsx:611:26
+  609 |   // Random width between 50 to 90%.
+  610 |   const width = React.useMemo(() => {
+> 611 |     return `${Math.floor(Math.random() * 40) + 50}%`;
+      |                          ^^^^^^^^^^^^^ Cannot call impure function
+  612 |   }, []);
+  613 |
+  614 |   return (  react-hooks/purity
+
+C:\Users\Walaa\OneDrive\Desktop\multi-vendor-ecommerce\frontend\src\app\contexts\AppContext.tsx
+  65:20  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Walaa\OneDrive\Desktop\multi-vendor-ecommerce\frontend\src\app\contexts\AppContext.tsx:65:20
+  63 |     const savedOrders = localStorage.getItem("orders");
+  64 |
+> 65 |     if (savedUser) setUser(JSON.parse(savedUser));
+     |                    ^^^^^^^ Avoid calling setState() directly within an effect
+  66 |     if (savedCart) setCart(JSON.parse(savedCart));
+  67 |     if (savedOrders) {
+  68 |       const parsedOrders = JSON.parse(savedOrders);  react-hooks/set-state-in-effect
+  70:42  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-explicit-any
+
+C:\Users\Walaa\OneDrive\Desktop\multi-vendor-ecommerce\frontend\src\app\login\page.tsx
+   74:59  error  Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  104:18  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Users\Walaa\OneDrive\Desktop\multi-vendor-ecommerce\frontend\src\app\products\page.tsx
+  44:36  error    Compilation Skipped: Existing memoization could not be preserved
+
+React Compiler has skipped optimizing this component because the existing manual memoization could not be preserved. The inferred dependencies did not match the manually specified dependencies, which could cause the value to change more or less frequently than expected. The inferred dependency was `products`, but the source dependencies were [searchQuery, selectedCategory, priceRange, sortBy]. Inferred different dependency than source.
+
+C:\Users\Walaa\OneDrive\Desktop\multi-vendor-ecommerce\frontend\src\app\products\page.tsx:44:36
+  42 |   }, []);
+  43 |
+> 44 |   const filteredProducts = useMemo(() => {
+     |                                    ^^^^^^^
+> 45 |     let filtered = [...products];
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 46 |
+     ???
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 82 |     return filtered;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 83 |   }, [searchQuery, selectedCategory, priceRange, sortBy]);
+     | ^^^^ Could not preserve existing manual memoization
+  84 |
+  85 |   return (
+  86 |     <div className="container mx-auto px-4 py-8">  react-hooks/preserve-manual-memoization
+  83:6   warning  React Hook useMemo has a missing dependency: 'products'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            react-hooks/exhaustive-deps
+
+C:\Users\Walaa\OneDrive\Desktop\multi-vendor-ecommerce\frontend\src\app\register\page.tsx
+  108:59  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\Walaa\OneDrive\Desktop\multi-vendor-ecommerce\frontend\src\app\vendor\page.tsx
+  68:9  warning  'vendorStoreId' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+??? 13 problems (7 errors, 6 warnings)
+

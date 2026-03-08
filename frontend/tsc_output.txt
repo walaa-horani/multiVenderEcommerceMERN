@@ -1,0 +1,17 @@
+src/app/components/ui/calendar.tsx(63,9): error TS2353: Object literal may only specify known properties, and 'IconLeft' does not exist in type 'Partial<CustomComponents>'.
+src/app/components/ui/calendar.tsx(63,22): error TS7031: Binding element 'className' implicitly has an 'any' type.
+src/app/components/ui/calendar.tsx(66,23): error TS7031: Binding element 'className' implicitly has an 'any' type.
+src/app/components/ui/chart.tsx(109,3): error TS2339: Property 'payload' does not exist on type 'Omit<Props<ValueType, NameType>, PropertiesReadFromContext> & { active?: boolean | undefined; allowEscapeViewBox?: AllowInDimension | undefined; ... 24 more ...; wrapperStyle?: CSSProperties | undefined; } & ClassAttributes<...> & HTMLAttributes<...> & { ...; }'.
+src/app/components/ui/chart.tsx(114,3): error TS2339: Property 'label' does not exist on type 'Omit<Props<ValueType, NameType>, PropertiesReadFromContext> & { active?: boolean | undefined; allowEscapeViewBox?: AllowInDimension | undefined; ... 24 more ...; wrapperStyle?: CSSProperties | undefined; } & ClassAttributes<...> & HTMLAttributes<...> & { ...; }'.
+src/app/components/ui/chart.tsx(182,23): error TS7006: Parameter 'item' implicitly has an 'any' type.
+src/app/components/ui/chart.tsx(182,29): error TS7006: Parameter 'index' implicitly has an 'any' type.
+src/app/components/ui/chart.tsx(260,39): error TS2344: Type '"payload" | "verticalAlign"' does not satisfy the constraint '"string" | "children" | "filter" | "fill" | "values" | "id" | "slot" | "style" | "clipPath" | "mask" | "path" | "className" | "key" | "name" | "type" | "suppressHydrationWarning" | ... 434 more ... | "portal"'.
+  Type '"payload"' is not assignable to type '"string" | "children" | "filter" | "fill" | "values" | "id" | "slot" | "style" | "clipPath" | "mask" | "path" | "className" | "key" | "name" | "type" | "suppressHydrationWarning" | ... 434 more ... | "portal"'.
+src/app/components/ui/chart.tsx(266,17): error TS2339: Property 'length' does not exist on type '{}'.
+src/app/components/ui/chart.tsx(278,16): error TS2339: Property 'map' does not exist on type '{}'.
+src/app/components/ui/chart.tsx(278,21): error TS7006: Parameter 'item' implicitly has an 'any' type.
+src/app/components/ui/resizable.tsx(12,51): error TS2339: Property 'PanelGroup' does not exist on type 'typeof import("C:/Users/Walaa/OneDrive/Desktop/multi-vendor-ecommerce/frontend/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/app/components/ui/resizable.tsx(14,25): error TS2339: Property 'PanelGroup' does not exist on type 'typeof import("C:/Users/Walaa/OneDrive/Desktop/multi-vendor-ecommerce/frontend/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/app/components/ui/resizable.tsx(35,51): error TS2339: Property 'PanelResizeHandle' does not exist on type 'typeof import("C:/Users/Walaa/OneDrive/Desktop/multi-vendor-ecommerce/frontend/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/app/components/ui/resizable.tsx(39,25): error TS2339: Property 'PanelResizeHandle' does not exist on type 'typeof import("C:/Users/Walaa/OneDrive/Desktop/multi-vendor-ecommerce/frontend/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/app/components/ui/resizable.tsx(52,26): error TS2339: Property 'PanelResizeHandle' does not exist on type 'typeof import("C:/Users/Walaa/OneDrive/Desktop/multi-vendor-ecommerce/frontend/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
