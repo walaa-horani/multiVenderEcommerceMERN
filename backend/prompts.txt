@@ -1,0 +1,30 @@
+first prompt:
+Create a full MERN stack multi-vendor eCommerce project. use Next.js instead of react..
+
+Create a "skills.md" file inside .agent folder  which includes functions, helpers,  apis , roles: admin, vendor, customer   and UI Design with dark theme and #d80000 as primary color.. create 2 folders for both frontend and backend 
+
+
+
+second prompt:
+Create MongoDB models using Mongoose:
+1. User model
+2. Vendor model: userId (ref User), storeName, storeDescription, storeLogo.
+3. Product model
+4. Order model
+5. Cart model
+6. update skills.md whenever it is neccessary
+
+
+third prompt:
+Implement authentication & authorization:
+1. JWT-based login and register.
+2. Middleware to protect routes based on role (admin, vendor, customer).
+3. Vendor can manage only products they added.
+4. Admin can manage all products, vendors, and orders.
+5. Customer can browse products, add to cart, place orders, see order history.
+
+
+
+
+
+    
