@@ -1,15 +1,12 @@
-"use client";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Outlet, Link, useLocation } from "react-router";
 import { ShoppingCart, User, Package, LayoutDashboard, LogOut, Store } from "lucide-react";
 import { useApp } from "../contexts/AppContext";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
-import { WebMCPBadge } from "./WebMCPBadge";
 
-export const Layout = ({ children }: { children: React.ReactNode }) => {
+export const Layout = () => {
   const { user, cart, logout } = useApp();
-  const pathname = usePathname();
+  const location = useLocation();
 
   const cartItemsCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -18,51 +15,52 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
       <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4">
           <div className="flex h-16 items-center justify-between">
-            <div className="flex items-center">
-              <Link href="/" className="flex items-center space-x-2">
-                <Store className="h-6 w-6 text-primary" />
-                <span className="text-xl font-bold">ShopHub</span>
-              </Link>
-              <WebMCPBadge />
-            </div>
+            <Link to="/" className="flex items-center space-x-2">
+              <Store className="h-6 w-6 text-primary" />
+              <span className="text-xl font-bold">ShopHub</span>
+            </Link>
 
             <nav className="hidden md:flex items-center space-x-6">
               <Link
-                href="/"
-                className={`transition-colors hover:text-primary ${pathname === "/" ? "text-primary" : "text-foreground/60"
-                  }`}
+                to="/"
+                className={`transition-colors hover:text-primary ${
+                  location.pathname === "/" ? "text-primary" : "text-foreground/60"
+                }`}
               >
                 Home
               </Link>
               <Link
-                href="/products"
-                className={`transition-colors hover:text-primary ${pathname === "/products" ? "text-primary" : "text-foreground/60"
-                  }`}
+                to="/products"
+                className={`transition-colors hover:text-primary ${
+                  location.pathname === "/products" ? "text-primary" : "text-foreground/60"
+                }`}
               >
                 Products
               </Link>
               {user?.role === "admin" && (
                 <Link
-                  href="/admin"
-                  className={`transition-colors hover:text-primary ${pathname === "/admin" ? "text-primary" : "text-foreground/60"
-                    }`}
+                  to="/admin"
+                  className={`transition-colors hover:text-primary ${
+                    location.pathname === "/admin" ? "text-primary" : "text-foreground/60"
+                  }`}
                 >
-                  Admin Dashboard
+                  Admin
                 </Link>
               )}
               {user?.role === "vendor" && (
                 <Link
-                  href="/vendor"
-                  className={`transition-colors hover:text-primary ${pathname === "/vendor" ? "text-primary" : "text-foreground/60"
-                    }`}
+                  to="/vendor"
+                  className={`transition-colors hover:text-primary ${
+                    location.pathname === "/vendor" ? "text-primary" : "text-foreground/60"
+                  }`}
                 >
-                  Vendor Dashboard
+                  Vendor
                 </Link>
               )}
             </nav>
 
             <div className="flex items-center space-x-4">
-              <Link href="/cart" className="relative">
+              <Link to="/cart" className="relative">
                 <Button variant="ghost" size="icon">
                   <ShoppingCart className="h-5 w-5" />
                   {cartItemsCount > 0 && (
@@ -75,12 +73,12 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
 
               {user ? (
                 <>
-                  <Link href="/orders">
+                  <Link to="/orders">
                     <Button variant="ghost" size="icon">
                       <Package className="h-5 w-5" />
                     </Button>
                   </Link>
-                  <Link href="/profile">
+                  <Link to="/profile">
                     <Button variant="ghost" size="icon">
                       <User className="h-5 w-5" />
                     </Button>
@@ -91,10 +89,10 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                 </>
               ) : (
                 <>
-                  <Link href="/login">
+                  <Link to="/login">
                     <Button variant="ghost">Login</Button>
                   </Link>
-                  <Link href="/register">
+                  <Link to="/register">
                     <Button>Sign Up</Button>
                   </Link>
                 </>
@@ -105,7 +103,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
       </header>
 
       <main>
-        {children}
+        <Outlet />
       </main>
 
       <footer className="border-t border-border mt-16">
@@ -120,10 +118,10 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
             <div>
               <h4 className="mb-4">Shop</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><Link href="/products" className="hover:text-primary">All Products</Link></li>
-                <li><Link href="/products?category=Electronics" className="hover:text-primary">Electronics</Link></li>
-                <li><Link href="/products?category=Fashion" className="hover:text-primary">Fashion</Link></li>
-                <li><Link href="/products?category=Sports" className="hover:text-primary">Sports</Link></li>
+                <li><Link to="/products" className="hover:text-primary">All Products</Link></li>
+                <li><Link to="/products?category=Electronics" className="hover:text-primary">Electronics</Link></li>
+                <li><Link to="/products?category=Fashion" className="hover:text-primary">Fashion</Link></li>
+                <li><Link to="/products?category=Sports" className="hover:text-primary">Sports</Link></li>
               </ul>
             </div>
             <div>
@@ -138,9 +136,9 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
             <div>
               <h4 className="mb-4">Account</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><Link href="/profile" className="hover:text-primary">My Account</Link></li>
-                <li><Link href="/orders" className="hover:text-primary">Order History</Link></li>
-                <li><Link href="/cart" className="hover:text-primary">Shopping Cart</Link></li>
+                <li><Link to="/profile" className="hover:text-primary">My Account</Link></li>
+                <li><Link to="/orders" className="hover:text-primary">Order History</Link></li>
+                <li><Link to="/cart" className="hover:text-primary">Shopping Cart</Link></li>
               </ul>
             </div>
           </div>

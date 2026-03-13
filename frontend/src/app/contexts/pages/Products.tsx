@@ -1,8 +1,7 @@
-"use client";
-import { useState, useEffect, useMemo, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useState, useMemo } from "react";
+import { useSearchParams } from "react-router";
 import { Search, SlidersHorizontal } from "lucide-react";
-import { Product, categories } from "../data/products";
+import { products, categories } from "../data/products";
 import { ProductCard } from "../components/ProductCard";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
@@ -17,29 +16,15 @@ import {
   SelectValue,
 } from "../components/ui/select";
 
-const ProductsContent = () => {
-  const searchParams = useSearchParams();
-  const [searchQuery, setSearchQuery] = useState(searchParams.get("search") || "");
+export const Products = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(
     searchParams.get("category") || "All"
   );
   const [priceRange, setPriceRange] = useState([0, 500]);
   const [sortBy, setSortBy] = useState("featured");
   const [showFilters, setShowFilters] = useState(false);
-  const [products, setProducts] = useState<Product[]>([]);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`)
-        const data = await res.json();
-        setProducts(data);
-      } catch (error) {
-        console.error("Failed to fetch products:", error);
-      }
-    };
-    fetchProducts();
-  }, []);
 
   const filteredProducts = useMemo(() => {
     let filtered = [...products];
@@ -110,8 +95,9 @@ const ProductsContent = () => {
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Filters Sidebar */}
         <aside
-          className={`lg:w-64 space-y-6 ${showFilters ? "block" : "hidden lg:block"
-            }`}
+          className={`lg:w-64 space-y-6 ${
+            showFilters ? "block" : "hidden lg:block"
+          }`}
         >
           <Card>
             <CardContent className="p-6 space-y-6">
@@ -122,10 +108,11 @@ const ProductsContent = () => {
                     <button
                       key={category}
                       onClick={() => setSelectedCategory(category)}
-                      className={`w-full text-left px-3 py-2 rounded-md transition-colors ${selectedCategory === category
-                        ? "bg-primary text-primary-foreground"
-                        : "hover:bg-accent"
-                        }`}
+                      className={`w-full text-left px-3 py-2 rounded-md transition-colors ${
+                        selectedCategory === category
+                          ? "bg-primary text-primary-foreground"
+                          : "hover:bg-accent"
+                      }`}
                     >
                       {category}
                     </button>
@@ -186,7 +173,7 @@ const ProductsContent = () => {
           {filteredProducts.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredProducts.map((product) => (
-                <ProductCard key={product._id} product={product} />
+                <ProductCard key={product.id} product={product} />
               ))}
             </div>
           ) : (
@@ -203,11 +190,3 @@ const ProductsContent = () => {
     </div>
   );
 };
-
-export default function Products() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <ProductsContent />
-    </Suspense>
-  );
-}
